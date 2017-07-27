@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.test.web.dao.MemberDao">
+
+	<select id = "selectMember" resultType = "memberBean">
+		select 
+			USER_ID as userId,
+			USER_PW as userPw,
+			USER_NAME as userName,
+			USER_PHONE_NUMBER as userPhoneNumber,
+			USER_PROFILE_IMG as userProfileImg
+		from member
+		where USER_ID = #{userId}
+	</select>
+	
+	<select id = "selectMemberList" resultType = "memberBean">
+		select 
+			USER_ID as userId,
+			USER_PW as userPw,
+			USER_NAME as userName,
+			USER_PHONE_NUMBER as userPhoneNumber,
+			USER_PROFILE_IMG as userProfileImg
+		from member;
+	</select>	
+	
+	<insert id ="insertMember" parameterType="MemberBean">
+		INSERT INTO Member
+			(USER_ID,
+			USER_PW,
+			USER_NAME,
+			USER_PHONE_NUMBER,
+			USER_PROFILE_IMG as userProfileImg)
+		VALUES
+			(#{userId},
+			#{userPw},
+			#{userName},
+			#{userPhoneNumber}
+			#{userProfileImg}
+			)
+	</insert>
+	
+	<update id ="updateMember" parameterType="MemberBean">
+		UPDATE Member
+		SET
+			USER_PW = #{userId},
+			USER_NAME =#{userName}
+		WHERE
+			USER_ID = #{userId}
+	</update>
+	
+	<delete id ="deleteMember" parameterType="MemberBean">
+		DELETE
+		FROM
+			Member
+		WHERE
+			USER_ID = #{userId}
+	</delete>
+	
+	<select id = "loginProc" parameterType = "MemberBean" resultType="MemberBean">
+		SELECT
+			USER_ID AS userId,
+			USER_PW AS userPw,
+			USER_NAME AS userName,
+			USER_PHONE_NUMBER AS userPhoneNumber,
+			USER_PROFILE_IMG AS userProfileImg
+		FROM Member
+		WHERE
+			USER_ID = #{userId} AND
+			USER_PW = #{userPw}
+	</select>
+
+</mapper>
